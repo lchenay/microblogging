@@ -1,0 +1,14 @@
+ElUserBundle:
+    resource: "@ElUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ElMicrobloggingBundle:
+    resource: "@ElMicrobloggingBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
