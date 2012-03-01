@@ -20,8 +20,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new El\MicrobloggingBundle\ElMicrobloggingBundle(),
             new El\UserBundle\ElUserBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new El\EncryptorBundle\ElEncryptorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -27,16 +27,16 @@ security:
             pattern:  ^/demo/secured/login$
             security: false
 
-#        secured_area:
-#            pattern:    ^/admin/
-#            provider: administrators
-#            form_login:
-#                check_path: /admin/login_check
-#                login_path: /admin/login
-#                use_referer: true
-#            logout:
-#                path:   /admin/logout
-#                target: /admin/
+        secured_area:
+            pattern:    ^/admin/
+            provider: administrators
+            form_login:
+                check_path: /admin/login_check
+                login_path: /admin/login
+                use_referer: true
+            logout:
+                path:   /admin/logout
+                target: /admin/
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"

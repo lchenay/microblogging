@@ -4,6 +4,7 @@ namespace El\MicrobloggingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use El\UserBundle\Entity\User;
 
 /**
  * El\MicrobloggingBundle\Entity\Profile
@@ -46,7 +47,7 @@ class Profile
 
     /**
      * Message identifier
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $uri;
 
@@ -79,13 +80,13 @@ class Profile
 
     /**
      * latitude
-     * @ORM\Column(type="float", precision=10, scale=7)
+     * @ORM\Column(type="float", precision=10, scale=7, nullable=true)
      */
     private $lat;
 
     /**
      * longitude
-     * @ORM\Column(type="float", precision=10, scale=7)
+     * @ORM\Column(type="float", precision=10, scale=7, nullable=true)
      */
     private $lon;
 
@@ -335,7 +336,7 @@ class Profile
      *
      * @param El\MicrobloggingBundle\User $user
      */
-    public function setUser(\El\MicrobloggingBundle\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }

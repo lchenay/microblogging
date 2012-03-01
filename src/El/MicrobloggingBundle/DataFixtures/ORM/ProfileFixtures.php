@@ -18,6 +18,7 @@ class ProfileFixtures extends AbstractFixture implements OrderedFixtureInterface
         $profile1->setTimezone('');
         $profile1->setHomepage('http://guillaume.cavana.com');
         $profile1->setBio('trop cool j\'adore le web');
+        $profile1->setUser($manager->merge($this->getReference('user-1')));
         $profile1->setLocation('Poissy');
         $manager->persist($profile1);
 

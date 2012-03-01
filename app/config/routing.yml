@@ -1,15 +1,10 @@
-ElEncryptorBundle:
-    resource: "@ElEncryptorBundle/Controller/"
+ElMicrobloggingBundle:
+    resource: "@ElMicrobloggingBundle/Controller/"
     type:     annotation
     prefix:   /
 
 ElUserBundle:
     resource: "@ElUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-ElMicrobloggingBundle:
-    resource: "@ElMicrobloggingBundle/Controller/"
     type:     annotation
     prefix:   /
 

@@ -5,6 +5,7 @@ namespace El\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use El\MicrobloggingBundle\Entity\Profile;
 
 /**
  * El\UserBundle\Entity\User
@@ -194,9 +195,9 @@ class User implements AdvancedUserInterface
     /**
      * Set profile
      *
-     * @param El\MicrobloggingBundle\Profile $profile
+     * @param El\MicrobloggingBundle\Entity\Profile $profile
      */
-    public function setProfile(\El\MicrobloggingBundle\Profile $profile)
+    public function setProfile(Profile $profile)
     {
         $this->profile = $profile;
     }
@@ -204,7 +205,7 @@ class User implements AdvancedUserInterface
     /**
      * Get profile
      *
-     * @return El\MicrobloggingBundle\Profile 
+     * @return El\MicrobloggingBundle\Entity\Profile 
      */
     public function getProfile()
     {

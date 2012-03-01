@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <!--
     <parameters>
@@ -17,4 +18,30 @@
         </service>
     </services>
     -->
+    
+    <parameters>
+        <parameter key="el_microblogging.encryptor.class">El\MicrobloggingBundle\Encryptor\Encryptor</parameter>
+        <parameter key="el_microblogging.encryptor_manager.class">El\MicrobloggingBundle\Encryptor\EncryptorManager</parameter>
+        <parameter key="el_microblogging.decryptor_manager.class">El\MicrobloggingBundle\Encryptor\DecryptorManager</parameter>
+    </parameters>
+    
+    <services>
+        <service id="el_microblogging.listener" class="El\MicrobloggingBundle\Listener\EncryptorListener">
+            <tag name="doctrine.event_listener" event="postPersist" />
+            <argument type="service" id="el_microblogging.encryptor_manager" />
+        </service>
+        
+        <service id="el_microblogging.encryptor" class="%el_microblogging.encryptor.class%">
+            <argument>8pwSMkDDXzyh</argument>
+        </service>
+        
+        <service id="el_microblogging.encryptor_manager" class="%el_microblogging.encryptor_manager.class%">
+            <argument type="service" id="el_microblogging.encryptor" />
+        </service>
+        
+        <service id="el_microblogging.decryptor_manager" class="%el_microblogging.decryptor_manager.class%">
+            <argument type="service" id="el_microblogging.encryptor" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+    </services> 
 </container>
