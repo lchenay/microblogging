@@ -1,4 +1,8 @@
 .DS_Store
-app/cache/*
-app/log/*
-nbproject/private/private.xml
+/nbproject/*
+web/bundles/
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/vendor/
+/app/config/parameters.ini

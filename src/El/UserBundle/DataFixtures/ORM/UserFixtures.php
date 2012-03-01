@@ -4,10 +4,12 @@
 
 namespace El\MicrobloggingBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use El\MicrobloggingBundle\Entity\User;
+use El\UserBundle\Entity\User;
 
 class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -40,7 +42,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
 
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 
 }

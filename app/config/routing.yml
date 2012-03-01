@@ -1,3 +1,8 @@
+ElEncryptorBundle:
+    resource: "@ElEncryptorBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 ElUserBundle:
     resource: "@ElUserBundle/Controller/"
     type:     annotation

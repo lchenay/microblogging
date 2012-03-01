@@ -51,11 +51,6 @@ class Profile
     private $uri;
 
     /**
-     * @ORM\Column(name="profile_url", type="string", length=255)
-     */
-    private $profileurl;
-
-    /**
      * @ORM\Column(name="language", type="string", length=50)
      */
     private $language;
@@ -153,26 +148,6 @@ class Profile
     public function getUri()
     {
         return $this->uri;
-    }
-
-    /**
-     * Set profileurl
-     *
-     * @param string $profileurl
-     */
-    public function setProfileurl($profileurl)
-    {
-        $this->profileurl = $profileurl;
-    }
-
-    /**
-     * Get profileurl
-     *
-     * @return string 
-     */
-    public function getProfileurl()
-    {
-        return $this->profileurl;
     }
 
     /**
