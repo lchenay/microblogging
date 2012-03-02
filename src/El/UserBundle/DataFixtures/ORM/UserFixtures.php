@@ -27,7 +27,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user1);
 
-        $password = $encoder->encodePassword('admin', $user1->getSalt());
+        $password = $encoder->encodePassword('gcavana', $user1->getSalt());
 
         $user1->setUsername('gcavana');
         $user1->setPassword($password);

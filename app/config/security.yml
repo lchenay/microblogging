@@ -15,7 +15,7 @@ security:
             users:
                 user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                 admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-        administrators:
+        users:
             entity: { class: ElUserBundle:User }                
 
     firewalls:
@@ -23,24 +23,23 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
         secured_area:
-            pattern:    ^/admin/
-            provider: administrators
+            pattern:    ^/
+            anonymous: ~
+            provider: users
             form_login:
-                check_path: /admin/login_check
-                login_path: /admin/login
+                login_path: /login              
+                check_path: /login_check
                 use_referer: true
+                default_target_path: /
             logout:
-                path:   /admin/logout
-                target: /admin/
+                path:   /logout
+                target: /
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/*, roles: ROLE_USER }      
         #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

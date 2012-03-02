@@ -23,6 +23,8 @@
         <parameter key="el_microblogging.encryptor.class">El\MicrobloggingBundle\Encryptor\Encryptor</parameter>
         <parameter key="el_microblogging.encryptor_manager.class">El\MicrobloggingBundle\Encryptor\EncryptorManager</parameter>
         <parameter key="el_microblogging.decryptor_manager.class">El\MicrobloggingBundle\Encryptor\DecryptorManager</parameter>
+        <parameter key="el_microblogging.twitter_bootstrap.menu_renderer.class">El\MicrobloggingBundle\Menu\TwitterBootstrapRenderer</parameter>
+        <parameter key="el_microbloggin.menu_builder.class">El\MicrobloggingBundle\Menu\MenuBuilder</parameter>
     </parameters>
     
     <services>
@@ -43,5 +45,21 @@
             <argument type="service" id="el_microblogging.encryptor" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
         </service>
+        
+        <service id="el_microblogging.twitter_bootstrap.menu_renderer" class="%el_microblogging.twitter_bootstrap.menu_renderer.class%">
+            <argument type="service" id="twig" />
+            <argument>ElMicrobloggingBundle:Menu:knp_menu.html.twig</argument>
+            <tag name="knp_menu.renderer" alias="bootstrap" />
+        </service>
+        
+        <service id="el_microblogging.menu_builder" class="%el_microbloggin.menu_builder.class%">
+            <argument type="service" id="knp_menu.factory" />
+        </service>
+        
+        <service id="el_microblogging.menu.main" class="Knp\Menu\MenuItem" scope="request" factory-service="el_microblogging.menu_builder" factory-method="createMainMenu">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="main" />
+        </service>
+        
     </services> 
 </container>

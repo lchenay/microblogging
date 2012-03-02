@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+              <title>Microblogging system - {% block title %}homepage{% endblock %}</title>
+        {% block stylesheets %}
+    {% stylesheets
+         '@ElMicrobloggingBundle/Resources/public/css/*'
+    %}
+
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+        {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}
+        {% javascripts
+            '@ElMicrobloggingBundle/Resources/public/js/jquery.js'
+            '@ElMicrobloggingBundle/Resources/public/js/bootstrap.js'
+        %}
+
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>
