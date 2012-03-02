@@ -1,0 +1,6 @@
+<form action="{{ path('profile_edit', { 'id' : profile.id } ) }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>

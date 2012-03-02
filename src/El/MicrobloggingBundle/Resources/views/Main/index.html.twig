@@ -2,6 +2,8 @@
 
 {% block body %}
 
-Hello {{ name }}!
+Hello {{ app.user.username }}!
+
+{% render 'ElMicrobloggingBundle:Message:new' %}
 
 {% endblock %}

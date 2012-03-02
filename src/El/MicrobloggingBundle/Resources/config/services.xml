@@ -25,6 +25,7 @@
         <parameter key="el_microblogging.decryptor_manager.class">El\MicrobloggingBundle\Encryptor\DecryptorManager</parameter>
         <parameter key="el_microblogging.twitter_bootstrap.menu_renderer.class">El\MicrobloggingBundle\Menu\TwitterBootstrapRenderer</parameter>
         <parameter key="el_microbloggin.menu_builder.class">El\MicrobloggingBundle\Menu\MenuBuilder</parameter>
+        <parameter key="el_microblogging.profile_manager.class">El\MicrobloggingBundle\Manager\ProfileManager</parameter>        
     </parameters>
     
     <services>
@@ -60,6 +61,10 @@
             <argument type="service" id="request" />
             <tag name="knp_menu.menu" alias="main" />
         </service>
+        
+        <service id="el_microblogging.profile_manager" class="%el_microblogging.profile_manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service> 
         
     </services> 
 </container>

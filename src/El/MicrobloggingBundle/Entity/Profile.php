@@ -5,6 +5,7 @@ namespace El\MicrobloggingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use El\UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * El\MicrobloggingBundle\Entity\Profile
@@ -41,6 +42,12 @@ class Profile
     private $user;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\MinLength(
+     *      limit=3,
+     *      message="Your fullname must have at least {{limit}} characters."
+     * )
+     * 
      * @ORM\Column(name="fullname", type="string", length=255)
      */
     private $fullname;
@@ -52,16 +59,20 @@ class Profile
     private $uri;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(name="language", type="string", length=50)
      */
     private $language;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(name="timezone", type="string", length=50)
      */
     private $timezone;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Url()
      * Message content
      * @ORM\Column(name="homepage", type="string", length=255)
      */
@@ -80,13 +91,13 @@ class Profile
 
     /**
      * latitude
-     * @ORM\Column(type="float", precision=10, scale=7, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
      */
     private $lat;
 
     /**
      * longitude
-     * @ORM\Column(type="float", precision=10, scale=7, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=7, nullable=true)
      */
     private $lon;
 
