@@ -22,33 +22,44 @@ class MessageController extends Controller
      */
     public function newAction()
     {
+        $request = $this->get('request');
         $message = new Message();
         $form = $this->createForm(new MessageType(), $message);
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                $message = $this->get('el_microblogging.message_manipulator')->create($message);
+                if ($message) {
+                    $this->get('el_microblogging.message_manager')->saveMessage($message);
+                }
+
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
 
         return array('form' => $form->createView());
     }
 
     /**
-     * @Route("/create", name="message_create")
+     * @Route("/show/{id}", name="message_show")
      * @Template()
      */
-    public function createAction()
+    public function showAction($id)
     {
+        $message = $this->get('el_microblogging.message_manager')->loadMessage($id);
 
-        $message = new Message();
-        $form = $this->createForm(new MessageType(), $message);
-        $form->bindRequest($request);
+        return array('message' => $message);
+    }
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()
-                    ->getEntityManager();
-            $em->persist($message);
-            $em->flush();
+    public function listAction()
+    {
+        $messages = $this->get('el_microblogging.message_manager')->loadMessages(10);
 
-            return $this->redirect($this->generateUrl('homepage'));
-        }
-
-        return array('form' => $form->createView());
+        return $this->render('ElMicrobloggingBundle:Message:list.html.twig', array(
+                    'messages' => $messages,
+                ));
     }
 
 }

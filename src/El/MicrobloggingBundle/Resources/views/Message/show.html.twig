@@ -3,6 +3,7 @@
 
 {% block body %}
 
-{% include 'ElMicrobloggingBundle:Message:form.html.twig' with { 'form': form } %}
+{{ message.content }}
+{{ message.created|el_microblogging_created_ago }}
 
 {% endblock %}

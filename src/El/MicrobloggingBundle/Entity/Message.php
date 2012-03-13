@@ -3,7 +3,10 @@
 namespace El\MicrobloggingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use El\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use El\MicrobloggingBundle\Encryptor\EncryptableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="El\MicrobloggingBundle\Entity\MessageRepository")
@@ -11,13 +14,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\HasLifecycleCallbacks()
  * @author Guillaume Cavana
  */
-class Message
+class Message implements EncryptableInterface
 {
+
+    const STATUS_MESSAGE = 0;
+    const STATUS_REPLY = 1;
+    const SOURCE_WEB = 'web';
 
     public function __construct()
     {
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
+        $this->setStatus(self::STATUS_MESSAGE);
+        $this->setSource(self::SOURCE_WEB);
     }
 
     public function __toString()
@@ -48,23 +57,22 @@ class Message
 
     /**
      * 
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="El\MicrobloggingBundle\Entity\Profile")
-     * @ORM\JoinColumn(name="from_profile_id", referencedColumnName="id")
-     */    
-    protected $fromProfile;
-
-    /**
-     * @ORM\OneToOne(targetEntity="El\MicrobloggingBundle\Entity\Profile")
-     * @ORM\JoinColumn(name="to_profile_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="El\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $toProfile;
+    protected $user;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\MinLength(
+     *      limit=10,
+     *      message="Your message must have at least {{ limit }} characters."
+     * )      
      * Message content
      * @ORM\Column(type="text")
      */
@@ -244,42 +252,22 @@ class Message
 
 
     /**
-     * Set fromProfile
+     * Set user
      *
-     * @param El\MicrobloggingBundle\Entity\Profile $fromProfile
+     * @param El\UserBundle\Entity\User $user
      */
-    public function setFromProfile(\El\MicrobloggingBundle\Entity\Profile $fromProfile)
+    public function setUser(User $user)
     {
-        $this->fromProfile = $fromProfile;
+        $this->user = $user;
     }
 
     /**
-     * Get fromProfile
+     * Get user
      *
-     * @return El\MicrobloggingBundle\Entity\Profile 
+     * @return El\UserBundle\Entity\User 
      */
-    public function getFromProfile()
+    public function getUser()
     {
-        return $this->fromProfile;
-    }
-
-    /**
-     * Set toProfile
-     *
-     * @param El\MicrobloggingBundle\Entity\Profile $toProfile
-     */
-    public function setToProfile(\El\MicrobloggingBundle\Entity\Profile $toProfile)
-    {
-        $this->toProfile = $toProfile;
-    }
-
-    /**
-     * Get toProfile
-     *
-     * @return El\MicrobloggingBundle\Entity\Profile 
-     */
-    public function getToProfile()
-    {
-        return $this->toProfile;
+        return $this->user;
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="el_microblogging.example.class">El\MicrobloggingBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="el_microblogging.example" class="%el_microblogging.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    
+    <parameters>
+        <parameter key="el_microblogging.encryptor.class">El\MicrobloggingBundle\Encryptor\Encryptor</parameter>
+        <parameter key="el_microblogging.encryptor_manager.class">El\MicrobloggingBundle\Encryptor\EncryptorManager</parameter>
+        <parameter key="el_microblogging.decryptor_manager.class">El\MicrobloggingBundle\Encryptor\DecryptorManager</parameter>
+        <parameter key="el_microblogging.profile_manager.class">El\MicrobloggingBundle\Manager\ProfileManager</parameter>
+        <parameter key="el_microblogging.message_manager.class">El\MicrobloggingBundle\Manager\MessageManager</parameter>
+    </parameters>
+    
+    <services>
+        
+        <service id="el_microblogging.encryptor" class="%el_microblogging.encryptor.class%">
+            <argument>8pwSMkDDXzyh</argument>
+        </service>
+        
+        <service id="el_microblogging.encryptor_manager" class="%el_microblogging.encryptor_manager.class%">
+            <argument type="service" id="el_microblogging.encryptor" />
+        </service>
+        
+        <service id="el_microblogging.decryptor_manager" class="%el_microblogging.decryptor_manager.class%">
+            <argument type="service" id="el_microblogging.encryptor" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+        
+        <service id="el_microblogging.profile_manager" class="%el_microblogging.profile_manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service> 
+        
+        <service id="el_microblogging.message_manager" class="%el_microblogging.message_manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
+        </service>
+        
+    </services>
+</container>

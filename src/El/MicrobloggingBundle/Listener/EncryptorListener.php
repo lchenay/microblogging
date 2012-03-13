@@ -28,8 +28,7 @@ class EncryptorListener
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof Profile) {
+        if ($entity instanceof EncryptInterface) {
             $entity->setUri($this->encryptorManager->encrypt($entity));
             $entityManager->persist($entity);
             $entityManager->flush();

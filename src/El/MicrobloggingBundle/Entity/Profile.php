@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use El\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
+use El\MicrobloggingBundle\Encryptor\EncryptableInterface;
 
 /**
  * El\MicrobloggingBundle\Entity\Profile
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @author Guillaume Cavana
  */
-class Profile
+class Profile implements EncryptableInterface
 {
 
     public function __construct()
@@ -45,7 +46,7 @@ class Profile
      * @Assert\NotBlank
      * @Assert\MinLength(
      *      limit=3,
-     *      message="Your fullname must have at least {{limit}} characters."
+     *      message="Your fullname must have at least {{ limit }} characters."
      * )
      * 
      * @ORM\Column(name="fullname", type="string", length=255)

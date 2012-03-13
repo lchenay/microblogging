@@ -24,5 +24,8 @@ class ElMicrobloggingExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('listener.xml');
+        $loader->load('manager.xml');
+        $loader->load('content_renderer.xml');
     }
 }

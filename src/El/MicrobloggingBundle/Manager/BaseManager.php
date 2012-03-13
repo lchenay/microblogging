@@ -7,9 +7,9 @@ namespace El\MicrobloggingBundle\Manager;
  *
  * @author gcavana
  */
-abstract class BaseManager
+abstract class BaseManager implements ManagerInterface
 {
-    protected function persistAndFlush($entity)
+    public function persistAndFlush($entity)
     {
         $this->em->persist($entity);
         $this->em->flush();

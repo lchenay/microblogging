@@ -3,9 +3,11 @@
 namespace El\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use El\MicrobloggingBundle\Entity\Profile;
+use El\MicrobloggingBundle\Entity\Message;
 
 /**
  * El\UserBundle\Entity\User
@@ -53,14 +55,18 @@ class User implements AdvancedUserInterface
      * @ORM\OneToOne(targetEntity="El\MicrobloggingBundle\Entity\Profile", mappedBy="user")
      */
     private $profile;
-    
-            
+
+    /**
+     * @ORM\OneToMany(targetEntity="El\MicrobloggingBundle\Entity\Message", mappedBy="user", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->isActive = true;
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
-    
+
     public function __toString()
     {
         return $this->getUsername();
@@ -196,7 +202,6 @@ class User implements AdvancedUserInterface
         return $this->isActive;
     }
 
-
     /**
      * Set profile
      *
@@ -215,5 +220,26 @@ class User implements AdvancedUserInterface
     public function getProfile()
     {
         return $this->profile;
+    }
+
+
+    /**
+     * Add messages
+     *
+     * @param El\MicrobloggingBundle\Entity\Message $messages
+     */
+    public function addMessage(Message $messages)
+    {
+        $this->messages[] = $messages;
+    }
+
+    /**
+     * Get messages
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

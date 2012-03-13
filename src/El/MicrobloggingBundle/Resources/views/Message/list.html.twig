@@ -1,0 +1,9 @@
+{% for message in messages %}
+
+{{ message.content }} - 
+<strong><i>{{ message.created|el_microblogging_created_ago }}</i></strong>
+<br />
+
+<br />
+
+{% endfor %}

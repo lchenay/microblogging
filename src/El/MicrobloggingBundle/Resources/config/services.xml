@@ -20,31 +20,17 @@
     -->
     
     <parameters>
-        <parameter key="el_microblogging.encryptor.class">El\MicrobloggingBundle\Encryptor\Encryptor</parameter>
-        <parameter key="el_microblogging.encryptor_manager.class">El\MicrobloggingBundle\Encryptor\EncryptorManager</parameter>
-        <parameter key="el_microblogging.decryptor_manager.class">El\MicrobloggingBundle\Encryptor\DecryptorManager</parameter>
         <parameter key="el_microblogging.twitter_bootstrap.menu_renderer.class">El\MicrobloggingBundle\Menu\TwitterBootstrapRenderer</parameter>
         <parameter key="el_microbloggin.menu_builder.class">El\MicrobloggingBundle\Menu\MenuBuilder</parameter>
-        <parameter key="el_microblogging.profile_manager.class">El\MicrobloggingBundle\Manager\ProfileManager</parameter>        
+        <parameter key="el_microblogging.content_renderer.provider.class">El\MicrobloggingBundle\Renderer\ContentRendererProvider</parameter>
+        <parameter key="el_microblogging.message_manipulator.class">El\MicrobloggingBundle\Manipulator\MessageManipulator</parameter>
+        <parameter key="el_microblogging.twig.extension.class">El\MicrobloggingBundle\Twig\Extensions\ElMicrobloggingExtension</parameter>
     </parameters>
     
     <services>
         <service id="el_microblogging.listener" class="El\MicrobloggingBundle\Listener\EncryptorListener">
             <tag name="doctrine.event_listener" event="postPersist" />
             <argument type="service" id="el_microblogging.encryptor_manager" />
-        </service>
-        
-        <service id="el_microblogging.encryptor" class="%el_microblogging.encryptor.class%">
-            <argument>8pwSMkDDXzyh</argument>
-        </service>
-        
-        <service id="el_microblogging.encryptor_manager" class="%el_microblogging.encryptor_manager.class%">
-            <argument type="service" id="el_microblogging.encryptor" />
-        </service>
-        
-        <service id="el_microblogging.decryptor_manager" class="%el_microblogging.decryptor_manager.class%">
-            <argument type="service" id="el_microblogging.encryptor" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
         </service>
         
         <service id="el_microblogging.twitter_bootstrap.menu_renderer" class="%el_microblogging.twitter_bootstrap.menu_renderer.class%">
@@ -62,9 +48,16 @@
             <tag name="knp_menu.menu" alias="main" />
         </service>
         
-        <service id="el_microblogging.profile_manager" class="%el_microblogging.profile_manager.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-        </service> 
+        <service id="el_microblogging.content_renderer.provider" class="%el_microblogging.content_renderer.provider.class%"></service>
         
+        <service id="el_microblogging.message_manipulator" class="%el_microblogging.message_manipulator.class%">
+            <argument type="service" id="el_microblogging.content_renderer.provider"></argument>
+            <argument type="service" id="security.context"></argument>
+        </service>
+        
+        <service id="el_microblogging.twig.extension" class="%el_microblogging.twig.extension.class%">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension"></tag>
+        </service>
     </services> 
 </container>
