@@ -1,3 +1,4 @@
+Symfony c'est trop génial, j'adore!!!
 Symfony Standard Edition
 ========================
 
